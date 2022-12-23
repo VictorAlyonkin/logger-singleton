@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Main {
+    private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         int size;
         int max;
@@ -14,10 +15,10 @@ public class Main {
 
         logger.log("Запускаем программу");
         logger.log("Просим пользователя ввести входные данные для списка: 4");
-        System.out.print("Введите размер списка: ");
-        size = sc.nextInt();//4
-        System.out.print("Введите верхнюю границу для значений: ");
-        max = sc.nextInt();//10
+
+        size = enterNumber("Введите размер списка: ");
+        max = enterNumber("Введите верхнюю границу для значений: ");
+
         logger.log("Создаем и наполняем список");
 
         numbers = new ArrayList<>();
@@ -30,8 +31,8 @@ public class Main {
         System.out.println();
 
         logger.log("Просим пользователя ввести входные данные для фильтрации");
-        logger.log("Введите порог для фильтра: ");
-        min = sc.nextInt();//4
+
+        min = enterNumber("Введите порог для фильтра: ");
 
         filter = new Filter(min);
         result = filter.filterOut(numbers);
@@ -42,5 +43,21 @@ public class Main {
         System.out.println();
 
         logger.log("Завершаем программу");
+    }
+
+    public static int enterNumber(String message){
+        int result;
+        while (true){
+            try {
+                System.out.print(message);
+                result = sc.nextInt();//4
+                break;
+            }catch (InputMismatchException e){
+                System.out.println("Некорректно указано значение!");
+            }finally {
+                sc.nextLine();
+            }
+        }
+        return result;
     }
 }
